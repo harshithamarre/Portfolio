@@ -1,0 +1,757 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Projects — Harshitha Priya Marre</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #F5F2EC;
+  --bg2: #EDE9E1;
+  --ink: #1A1714;
+  --ink2: #5A544A;
+  --accent: #C74B2A;
+  --card: #FDFAF5;
+  --border: rgba(26,23,20,0.12);
+  --tag-bg: #1A1714;
+  --tag-fg: #F5F2EC;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.6;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ─── CURSOR ─── */
+
+.cursor {
+  width: 10px;
+  height: 10px;
+  background: var(--accent);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition:
+    transform 0.1s,
+    width 0.2s,
+    height 0.2s,
+    background 0.2s;
+}
+
+.cursor.big {
+  width: 40px;
+  height: 40px;
+  background: rgba(199,75,42,0.15);
+}
+
+a,
+button {
+  cursor: none;
+}
+
+/* ─── NAV ─── */
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+
+  padding: 1.5rem 4rem;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  background: rgba(245,242,236,0.85);
+  backdrop-filter: blur(12px);
+
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  color: var(--ink2);
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  color: var(--ink2);
+  text-decoration: none;
+  position: relative;
+  transition: color 0.2s;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--accent);
+  transition: width 0.3s;
+}
+
+.nav-links a:hover {
+  color: var(--ink);
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+/* ─── PROJECTS HEADER ─── */
+
+#projects {
+  min-height: 100vh;
+  padding: 10rem 4rem 8rem;
+  background: var(--bg2);
+}
+
+.projects-header {
+  max-width: 1200px;
+  margin: 0 auto 4rem;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  text-transform: uppercase;
+
+  margin-bottom: 1.5rem;
+
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.section-heading {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3rem, 7vw, 6rem);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+/* ─── BUTTON ─── */
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  padding: 0.85rem 2rem;
+
+  background: transparent;
+  color: var(--ink);
+
+  text-decoration: none;
+
+  font-size: 0.875rem;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+
+  border: 1px solid var(--border);
+  border-radius: 2px;
+
+  transition:
+    border-color 0.2s,
+    color 0.2s,
+    transform 0.2s;
+}
+
+.btn-ghost:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-2px);
+}
+
+/* ─── PROJECT GRID ─── */
+
+.projects-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.project-card {
+  background: var(--card);
+
+  border: 1px solid var(--border);
+  border-radius: 4px;
+
+  padding: 2.5rem;
+
+  transition:
+    transform 0.3s,
+    box-shadow 0.3s;
+
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card::after {
+  content: '';
+
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  width: 0;
+  height: 2px;
+
+  background: var(--accent);
+
+  transition: width 0.4s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+}
+
+.project-card:hover::after {
+  width: 100%;
+}
+
+.project-number {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--accent);
+  letter-spacing: 0.12em;
+
+  margin-bottom: 2rem;
+}
+
+.project-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 400;
+
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.project-desc {
+  color: var(--ink2);
+  font-size: 0.9rem;
+  font-weight: 300;
+
+  line-height: 1.7;
+
+  margin-bottom: 1.5rem;
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+
+  margin-bottom: 1.5rem;
+}
+
+.tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+
+  padding: 0.3rem 0.7rem;
+
+  background: var(--tag-bg);
+  color: var(--tag-fg);
+
+  border-radius: 2px;
+
+  letter-spacing: 0.05em;
+}
+
+.tag.light {
+  background: transparent;
+  color: var(--ink2);
+  border: 1px solid var(--border);
+}
+
+.project-link {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+
+  letter-spacing: 0.1em;
+
+  color: var(--ink);
+
+  text-decoration: none;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+
+  transition: color 0.2s;
+}
+
+.project-link:hover {
+  color: var(--accent);
+}
+
+.project-link svg {
+  transition: transform 0.2s;
+}
+
+.project-link:hover svg {
+  transform: translate(2px, -2px);
+}
+
+/* ─── ANIMATION ─── */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+
+  animation: reveal 0.8s ease forwards;
+}
+
+.delay-1 {
+  animation-delay: 0.15s;
+}
+
+.delay-2 {
+  animation-delay: 0.3s;
+}
+
+.delay-3 {
+  animation-delay: 0.45s;
+}
+
+@keyframes reveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ─── FOOTER ─── */
+
+footer {
+  padding: 1.5rem 4rem;
+
+  border-top: 1px solid var(--border);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+
+  letter-spacing: 0.12em;
+  color: var(--ink2);
+}
+
+/* ─── RESPONSIVE ─── */
+
+@media (max-width: 900px) {
+
+  nav {
+    padding: 1.25rem 2rem;
+  }
+
+  #projects {
+    padding: 8rem 2rem 5rem;
+  }
+
+  .projects-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2rem;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  footer {
+    padding: 1.5rem 2rem;
+
+    flex-direction: column;
+    gap: 0.5rem;
+
+    text-align: center;
+  }
+}
+
+@media (max-width: 600px) {
+
+  .nav-links {
+    display: none;
+  }
+
+  .project-card {
+    padding: 2rem;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="cursor" id="cursor"></div>
+
+<!-- NAV -->
+
+<nav>
+
+  <a href="index.html" class="nav-logo">
+    HPM
+  </a>
+
+  <ul class="nav-links">
+
+    <li>
+      <a href="index.html#about">About</a>
+    </li>
+
+    <li>
+      <a href="projects.html">Projects</a>
+    </li>
+
+    <li>
+      <a href="index.html#interests">Interests</a>
+    </li>
+
+    <li>
+      <a href="index.html#contact">Contact</a>
+    </li>
+
+  </ul>
+
+</nav>
+
+
+<!-- PROJECTS -->
+
+<section id="projects">
+
+  <div class="projects-header">
+
+    <div>
+
+      <p class="section-label reveal">
+        Selected work
+      </p>
+
+      <h1 class="section-heading reveal delay-1">
+        Projects
+      </h1>
+
+    </div>
+
+    <a
+      href="https://github.com/harshithamarre?tab=repositories"
+      target="_blank"
+      class="btn-ghost reveal delay-2"
+    >
+      All repos
+
+      <svg
+        width="12"
+        height="12"
+        viewBox="0 0 12 12"
+        fill="none"
+      >
+        <path
+          d="M1 1l10 10M1 11h4M11 1v4"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+        />
+      </svg>
+
+    </a>
+
+  </div>
+
+
+  <div class="projects-grid">
+
+    <!-- PROJECT 01 -->
+
+    <div class="project-card reveal">
+
+      <p class="project-number">
+        01 / 03
+      </p>
+
+      <h2 class="project-title">
+        PlayZone
+      </h2>
+
+      <p class="project-desc">
+        A gaming hub designed to bring gamers together through
+        individual gaming experiences. A platform offering a
+        variety of single-player games in one place.
+      </p>
+
+      <div class="project-tags">
+
+        <span class="tag">
+          JavaScript
+        </span>
+
+        <span class="tag light">
+          HTML5
+        </span>
+
+        <span class="tag light">
+          CSS3
+        </span>
+
+      </div>
+
+      <a
+        href="https://github.com/harshithamarre/PlayZone"
+        target="_blank"
+        class="project-link"
+      >
+        View on GitHub
+
+        <svg
+          width="12"
+          height="12"
+          viewBox="0 0 12 12"
+          fill="none"
+        >
+          <path
+            d="M1 1l10 10M1 11h4M11 1v4"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+          />
+        </svg>
+
+      </a>
+
+    </div>
+
+
+    <!-- PROJECT 02 -->
+
+    <div class="project-card reveal delay-1">
+
+      <p class="project-number">
+        02 / 03
+      </p>
+
+      <h2 class="project-title">
+        CareerCanvas
+      </h2>
+
+      <p class="project-desc">
+        A comprehensive platform for personalized career advice,
+        skill development resources, and job matching to help
+        individuals navigate their professional journeys.
+      </p>
+
+      <div class="project-tags">
+
+        <span class="tag">
+          HTML
+        </span>
+
+        <span class="tag light">
+          CSS
+        </span>
+
+        <span class="tag light">
+          JavaScript
+        </span>
+
+      </div>
+
+      <a
+        href="https://github.com/harshithamarre/CareerCanvas"
+        target="_blank"
+        class="project-link"
+      >
+        View on GitHub
+
+        <svg
+          width="12"
+          height="12"
+          viewBox="0 0 12 12"
+          fill="none"
+        >
+          <path
+            d="M1 1l10 10M1 11h4M11 1v4"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+          />
+        </svg>
+
+      </a>
+
+    </div>
+
+
+    <!-- PROJECT 03 -->
+
+    <div class="project-card reveal delay-2">
+
+      <p class="project-number">
+        03 / 03
+      </p>
+
+      <h2 class="project-title">
+        VitalityZone
+      </h2>
+
+      <p class="project-desc">
+        A wellness platform focused on overall wellbeing —
+        conveying wisdom and insight into healthy living,
+        suggesting balance and companionship in achieving
+        wellness goals.
+      </p>
+
+      <div class="project-tags">
+
+        <span class="tag light">
+          In Progress
+        </span>
+
+        <span class="tag light">
+          Full-Stack
+        </span>
+
+      </div>
+
+      <span
+        class="project-link"
+        style="color:var(--ink2)"
+      >
+        Coming soon
+
+        <svg
+          width="12"
+          height="12"
+          viewBox="0 0 12 12"
+          fill="none"
+        >
+          <path
+            d="M6 1v10M1 6h10"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+          />
+        </svg>
+
+      </span>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+  <span class="footer-text">
+    © 2025 Harshitha Priya Marre
+  </span>
+
+  <span class="footer-text">
+    Built with care &amp; curiosity
+  </span>
+
+</footer>
+
+
+<script>
+
+// Custom cursor
+
+const cursor = document.getElementById('cursor');
+
+document.addEventListener('mousemove', e => {
+
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top = e.clientY + 'px';
+
+});
+
+
+// Cursor hover effect
+
+document.querySelectorAll('a, button').forEach(el => {
+
+  el.addEventListener('mouseenter', () => {
+    cursor.classList.add('big');
+  });
+
+  el.addEventListener('mouseleave', () => {
+    cursor.classList.remove('big');
+  });
+
+});
+
+</script>
+
+</body>
+</html>
